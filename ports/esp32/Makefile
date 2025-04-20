@@ -89,13 +89,13 @@ clean:
 	$(call RUN_IDF_PY,fullclean)
 
 deploy:
-	$(call RUN_IDF_PY,$(DEVICE) flash)
+	$(call RUN_IDF_PY,$(DEVICE) --baud 2000000 flash -p /dev/ttyACM0)
 
 erase:
 	$(call RUN_IDF_PY,$(DEVICE) erase-flash)
 
 monitor:
-	$(call RUN_IDF_PY,$(DEVICE) monitor)
+	$(call RUN_IDF_PY,$(DEVICE) monitor -p /dev/ttyACM0)
 
 size:
 	$(call RUN_IDF_PY,size)
