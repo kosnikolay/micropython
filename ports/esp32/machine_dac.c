@@ -100,7 +100,10 @@ MP_DEFINE_CONST_FUN_OBJ_2(mdac_write_obj, mdac_write);
 
 static mp_obj_t mdac_deinit(mp_obj_t self_in) {
     mdac_obj_t *self = self_in;
-    check_esp_err(dac_output_disable(self->dac_id));
+    if(self->dac_oneshot_handle != NULL)
+    {
+        check_esp_err(dac_oneshot_del_channel(self->dac_oneshot_handle) );
+    }
     return mp_const_none;
 }
 MP_DEFINE_CONST_FUN_OBJ_1(mdac_deinit_obj, mdac_deinit);
